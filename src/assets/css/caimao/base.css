@@ -1,0 +1,156 @@
+html {
+    width: 100%;
+    height: 100%;
+    /*background-color: #0a8ddf;*/
+}
+html, body, ul, p , li, a, button {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+body, a, img, label, button, input, textarea, select {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+body {
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    font-family: "Microsoft YaHei";
+    -webkit-font-smoothing:antialiased;
+    width:100%;
+    height: 100%;
+}
+p, span, i, button, div{
+    font-family: "Microsoft YaHei";
+}
+i {
+    font-style: normal;
+}
+li {
+    list-style: none;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+a {
+    color:inherit;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.tipsAni{position:fixed;width:240px;margin-left:-120px;color:#fff;background-color:rgba(0,0,0,0.5);text-align:center;left:50%;bottom:100px;font-size:14px;z-index:2001;pointer-events:none;padding:10px 5px;border-radius:10px;animation:3s ease 0s;-webkit-animation:3s ease 0s}
+@-webkit-keyframes tipsAniControl{
+    0%{opacity:0}
+    10%{opacity:1}
+    90%{opacity:1}
+    100%{opacity:0}
+}
+@keyframes tipsAniControl{
+    0%{opacity:0}
+    10%{opacity:1}
+    90%{opacity:1}
+    100%{opacity:0}
+}
+.removeAni{-webkit-animation:removeAniControl .5s ease 0s;animation:removeAniControl .5s ease 0s}
+@-webkit-keyframes removeAniControl{
+    0%{opacity:1}
+    100%{opacity:0;left:-300px}
+}
+@keyframes removeAniControl{
+    0%{opacity:1}
+    100%{opacity:0;left:-300px}
+}
+
+/*弹出框start*/
+.ui-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #888;
+    opacity: .5;
+    display: none;
+    z-index: 1001;
+    -webkit-transform: translateZ(0);
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+
+.ui-dialog {
+    overflow: hidden;
+    z-index: 1002;
+    position: fixed;
+    display: none;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    background: #FFFFFF;
+    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+    -webkit-border-radius: 0.2rem;
+    box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+    border-radius: 0.2rem;
+    min-width: 10rem;
+    max-width: 18rem;
+}
+.ui-dialog .ui-dialog-title {
+    position: relative;
+    line-height: 125%;
+    font-size: 1rem;
+    text-align: center;
+    background: #FFFFFF;
+    color: #FB8B0F;
+    font-weight: 700;
+    -webkit-border-radius: 0.2rem;
+    border-radius: 0.2rem;
+}
+.ui-dialog .ui-dialog-title h3 {
+    padding: 0.3rem 0;
+    margin: 0 .5rem 0 .5rem;
+    border-bottom: 2px solid #FB8B0F;
+}
+.ui-dialog .ui-dialog-content {
+    padding: .5rem .5rem .2rem .5rem;
+    position: relative;
+    color: #000000;
+    font-size: .9rem;
+    text-align: center;
+    overflow: hidden;
+}
+.ui-dialog-btns {
+    text-align: center;
+    margin: .5rem 0;
+    width: 100%;
+    cursor: pointer;
+}
+.ui-dialog-btns .ui-btn {
+    font-size: .9rem;
+    line-height: 1.6rem;
+    width: 5rem;
+    display: inline-block;
+    text-align: center;
+    height: 1.6rem;
+    color: #FFFFFF;
+    background-color: #F39800;
+    text-shadow: -1px -1px 1px #b4560c;
+    border-radius: 0.2rem;
+    margin: 0 .5rem;
+    font-weight: bold;
+}
+.ui-dialog-btns a[data-key='cancel'] {
+    background-color: #898989;
+    text-shadow: none;
+}
