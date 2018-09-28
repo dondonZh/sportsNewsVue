@@ -1,6 +1,7 @@
-# CaimaoNewsWeb
+# SportsNewsWeb
 
-> vue pra
+> vue搭建
+
 
 ## Build Setup
 
@@ -17,5 +18,18 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
+> 组件
+``` bash
+#vuex
+#vue-scroller
+#vue-jsonp
+#vuex-router
+```
+> UI框架
+``` bash
+[SUI Mobile]SUI Mobile 是一套基于 Framework7 开发的UI库。它非常轻量、精美，只需要引入我们的CDN文件就可以使用，并且能兼容到 iOS 6.0+ 和 Android 4.0+，非常适合开发跨平台Web App。(http://m.sui.taobao.org/)
+```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+
