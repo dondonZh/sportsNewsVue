@@ -110,7 +110,7 @@
                 </div>
                 <div class="col-20">
 
-                  <img :src="match.hostLogo">
+                  <img v-lazy="match.hostLogo">
                   <span class="mtcoutry"> {{match.hostName}}</span>
 
 
@@ -125,7 +125,7 @@
                 </div>
                 <div class="col-20">
 
-                  <img :src="match.guestLogo">
+                  <img v-lazy="match.guestLogo">
                   <span class="mtcoutry">{{match.guestName}}</span>
                 </div>
 

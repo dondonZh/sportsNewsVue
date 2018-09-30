@@ -6,6 +6,7 @@ import routerConfig from './router'
 import VueRouter from 'vue-router';
 import VueScroller from 'vue-scroller'
 import store from './store'
+import VueLazyload from 'vue-lazyload'
 import vuex from 'vuex'
 import animate from 'animate.css'
 import VueJsonp from 'vue-jsonp'
@@ -22,7 +23,13 @@ import './assets/js/lib/sm-extend.min.js';
 
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: 'static/sports_img/loading.gif',
+  loading: 'static/sports_img/loading.gif',
+  attempt: 3,
+});
 Vue.use(VueScroller)
 Vue.use(vuex);
 Vue.use(VueRouter);
@@ -45,4 +52,4 @@ new Vue({
   /*components: { App },
   template: '<App/>',*/
   render: h => h(App)
-})
+});

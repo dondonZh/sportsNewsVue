@@ -17,7 +17,7 @@
       <div class="artContent" v-html="content">
 
       </div>
-      <span class="sourceFrom">来源：{{source}}</span>
+      <!--<span class="sourceFrom">来源：{{source}}</span>-->
     </div>
    <!-- <div class="links">
       <ul>

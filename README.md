@@ -24,6 +24,7 @@ npm run build --report
 #vue-scroller
 #vue-jsonp
 #vuex-router
+#vue-lazyload
 ```
 > UI框架
 

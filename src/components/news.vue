@@ -4,17 +4,22 @@
 
     <header class="bar bar-nav barre">
 
-      <img class="searchicon" src="../assets/imgs/Searchicon.png" @click='inOut'>
+      <!-- <img class="searchicon" src="../assets/imgs/Searchicon.png" @click='inOut'>
+         <div :class="{searchbar:sbar,animated:animated,fadeInRight:barIn,fadeOutRight:barOut}" :style="{display:isShow}">
+           <a class="searchbar-cancel" @click="inOut">取消</a>
+           <div class="search-input">
 
-
+             <input type="search" id='search' placeholder='输入关键字...'/>
+           </div>
+         </div>--><!-- <img class="searchicon" src="../assets/imgs/Searchicon.png" @click='inOut'>
         <div :class="{searchbar:sbar,animated:animated,fadeInRight:barIn,fadeOutRight:barOut}" :style="{display:isShow}">
           <a class="searchbar-cancel" @click="inOut">取消</a>
           <div class="search-input">
-            <!--<label class="icon icon-search" for="search"></label>-->
+
             <input type="search" id='search' placeholder='输入关键字...'/>
           </div>
-        </div>
-        <!--<input  class="searchInput" type="text" value="12"/>-->
+        </div>-->
+
 
       <span class="title">推荐</span>
     </header>
@@ -79,7 +84,7 @@
                         <span class="new-source">{{newitem.source}}</span>
                       </div>
 
-                      <img class="" :src="newitem.thumbs">
+                      <img class=""  v-lazy="newitem.thumbs">
                     </div>
                   </router-link>
                 </div>
@@ -116,12 +121,12 @@
       <router-link to="/" class="tab-item external active">
         <img class="icon" src="../assets/imgs/news-on.png">
         <!-- <span class="icon icon-home"></span>-->
-        <span class="tab-label">首页</span>
+        <span class="tab-label">推荐</span>
       </router-link>
       <router-link to="/matches" class="tab-item external">
         <img class="icon" src="../assets/imgs/matches-off.png">
         <!-- <span class="icon icon-star"></span>-->
-        <span class="tab-label">推荐</span>
+        <span class="tab-label">赛事</span>
       </router-link>
       <!--<router-link to="/user" class="tab-item external">
         <img class="icon" src="../assets/imgs/user-off.png">
@@ -139,7 +144,7 @@
     name: "news",
     created() {
 
-      console.log('i am cr')
+      /*  console.log('i am cr')*/
     },
     data() {
       return {
@@ -170,7 +175,7 @@
           vm.barOut = true;
           if (vm && vm.$refs.my_scroller) {//通过vm实例访问this
             setTimeout(function () {
-              console.log('next_vm', vm.$refs.my_scroller.getPosition().top);
+
               vm.$refs.my_scroller.scrollTo(0, sessionStorage.askPositon, false);
             }, 0)//同步转异步操作
           }
@@ -189,9 +194,10 @@
         this.barOut = !this.barOut;
       },
       infinite(done) {
-        console.log(this.$refs.my_scroller.getPosition());
+
         var vm = this;
         setTimeout(() => {
+          //axios方式访问
           /*  axios.get('/api/news/getall', {*/
 
           /* axios.get('/interface.do?fn=3001&sortId=23', {
@@ -217,17 +223,19 @@
               maxId: vm.maxId,
               callbackQuery: 'jsonpcallback'
             }).then(json => {
-            vm.newList.push(...json.data);
-            vm.$store.dispatch('saveMaxId', json.maxId);
-            vm.$store.dispatch('saveList', json.data);
-            done(true);
+            if(json.data.length ){
+              vm.newList.push(...json.data);
+              vm.$store.dispatch('saveMaxId', json.maxId);
+              vm.$store.dispatch('saveList', json.data);
+              done();
+            }else{
+              done(true);
+            }
           }).catch(err => {
             console.log(err)
           });
 
         }, 1500);
-        console.log('infiniteNew')
-
 
       },
       refresh(done) {
@@ -270,7 +278,6 @@
           });
 
         }, 1500);
-        console.log('refreshNew')
 
       },
     }
