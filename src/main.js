@@ -10,16 +10,25 @@ import VueLazyload from 'vue-lazyload'
 import vuex from 'vuex'
 import animate from 'animate.css'
 import VueJsonp from 'vue-jsonp'
+import VueOnsen from 'vue-onsenui';
 
 
 
 //css
+
 import './assets/css/lib/sm-extend.min.css';
 import './assets/css/caimao/index.css'
 import './assets/css/caimao/base.css'
+// Webpack CSS import
+import 'onsenui/css/onsenui.css';
+import 'onsenui/css/onsen-css-components.css';
 //js
 import './assets/js/lib/zepto.min.js';
 import './assets/js/lib/sm-extend.min.js';
+
+
+
+
 
 
 
@@ -30,11 +39,12 @@ Vue.use(VueLazyload, {
   loading: 'static/sports_img/loading.gif',
   attempt: 3,
 });
-Vue.use(VueScroller)
+Vue.use(VueScroller);
 Vue.use(vuex);
 Vue.use(VueRouter);
 Vue.use(VueJsonp);
 Vue.use(animate);
+Vue.use(VueOnsen);
 
 const router = new VueRouter(routerConfig);
 

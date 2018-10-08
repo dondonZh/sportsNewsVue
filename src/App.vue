@@ -11,10 +11,13 @@
 
 <template>
   <div id="app">
-
+    <transition :name="transitionName">
     <keep-alive>
+
       <router-view v-if="$route.meta.keepAlive"></router-view>
+
     </keep-alive>
+    </transition>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
   </div>
 </template>
@@ -24,7 +27,18 @@
   export default {
 
     name: 'App',
-
+    data(){
+      return{
+        transitionName:'',
+      }
+    },
+    watch: {
+      '$route' (to, from) {
+        const toDepth = to.path.split('/').length
+        const fromDepth = from.path.split('/').length
+        this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+      }
+    }
 
   }
 </script>

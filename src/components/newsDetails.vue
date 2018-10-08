@@ -13,7 +13,7 @@
       <h3 class="newstitle">{{title}}</h3>
       <span class="timeAuthor">{{createTime}}</span>
       <span class="views">阅读次数：{{hits}}</span>
-      <img class="newsimg" :src="img">
+      <img class="newsimg" v-lazy="img">
       <div class="artContent" v-html="content">
 
       </div>
