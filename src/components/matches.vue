@@ -1,5 +1,4 @@
-<style scoped>
-</style>
+
 
 <template>
   <div id="matches">
@@ -54,6 +53,7 @@
                   :on-refresh="refresh"
                   :on-infinite="infinite"
                   :snapping="true"
+                  ref="match_scroller"
         >
           <svg class="spinner" style="stroke: #17b03b;" slot="refresh-spinner" viewBox="0 0 64 64">
             <g stroke-width="7" stroke-linecap="round">
@@ -93,7 +93,10 @@
           </svg>
           <div class="matchCtBox" v-for="(match,index) in matList">
 
-            <span class="chooseTime" v-if="index == 0">奖期 : {{match.issueNo}}</span><span  class="chooseTime" v-else-if="matList[index].issueNo != matList[index - 1].issueNo">奖期{{match.issueNo}}</span>
+            <!-- <span class="chooseTime" v-if="index == 0">
+               奖期 : {{match.issueNo}} {{backWeek(match)}} {{backCount(match)}}场比赛</span>
+             <span class="chooseTime" v-else-if="matList[index].issueNo != matList[index - 1].issueNo">
+               奖期 : {{match.issueNo}} {{backWeek(match)}} {{backCount(match)}}场比赛</span>-->
 
             <div class="shadow">
               <div class="row rowout">
@@ -109,8 +112,7 @@
 
                 </div>
                 <div class="col-20">
-
-                  <img v-lazy="match.hostLogo">
+                  <img   v-lazy="match.hostLogo" :key="match.matchCode">
                   <span class="mtcoutry"> {{match.hostName}}</span>
 
 
@@ -124,8 +126,7 @@
 
                 </div>
                 <div class="col-20">
-
-                  <img v-lazy="match.guestLogo">
+                  <img   v-lazy="match.guestLogo" :key="match.matchCode">
                   <span class="mtcoutry">{{match.guestName}}</span>
                 </div>
 
@@ -189,7 +190,7 @@
       <router-link to="/" class="tab-item external">
         <img class="icon" src="../assets/imgs/news-off.png">
         <!-- <span class="icon icon-home"></span>-->
-        <span class="tab-label">首页</span>
+        <span class="tab-label">推荐</span>
       </router-link>
       <router-link to="/matches" class="tab-item external active">
         <img class="icon" src="../assets/imgs/matches.png">
@@ -209,12 +210,19 @@
   export default {
     name: "matches",
     created() {
-      var time = new Date();
-      var show_day = new Array('周日', '周一', '周二', '周三', '周四', '周五', '周六');
-      var month = time.getMonth() + 1;
-      var date = time.getDate();
-      var day = time.getDay();
-      this.currentDateStr = month + '月' + date + '日' + show_day[day];
+      //加载指示器
+      /* $.showIndicator();*/
+      /*  var time = new Date();
+        var show_day = new Array('周日', '周一', '周二', '周三', '周四', '周五', '周六');
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+        var day = time.getDay();
+        this.currentDateStr = month + '月' + date + '日' + show_day[day];*/
+    },
+    mounted(){
+      this.$nextTick(function () {
+        /* console.log('count',this.matchCount);*/
+      });
     },
     data() {
       return {
@@ -236,9 +244,43 @@
         } else {
           return this.matchList.filter(i => i.lname == this.filterName);
         }
+      },
+      matchCount: function () {
+        var afterCount = [...new Set(this.matList.map(item => item.issueNo))];
+
+
+        afterCount.forEach((aitem,index) => {
+          var ct = {"issue":'',count:0};
+          ct.issue = aitem;
+          afterCount[index] = ct;
+        });
+
+        this.matList.forEach((citem, index) => {
+          afterCount.forEach((item,index) =>{
+            if(item.issue == citem.issueNo){
+              afterCount[index].count++;
+            }
+          });
+        });
+        return afterCount;
       }
     },
     methods: {
+      backCount(match){
+        var tep ='';
+        this.matchCount.forEach((item,index) =>{
+          if(match.issueNo === item.issue){
+            tep = item.count;
+            return;
+          }
+        });
+        return tep;
+      },
+      backWeek(match) {
+        var weekDay = match.matchCode.substr(match.issueNo.length, 1);
+        var show_day = new Array( '周一', '周二', '周三', '周四', '周五', '周六','周日');
+        return show_day[weekDay - 1];
+      },
       totalGoal(match) {
         if (match.hostGoal == -1) {
           return '--';
@@ -256,6 +298,7 @@
         vm.matchTypes[index].isSelected = true;
         /*vm.matchList = vm.matchAllList.filter(i => i.lname == this.matchTypes[index].name);*/
         vm.filterName = this.matchTypes[index].name;
+        vm.$refs.match_scroller.scrollTo(0, 0, false);
         vm.filterMc();
       },
       filterMc() {
@@ -308,7 +351,11 @@
                 vm.matchTypes.push(type);
               });
 
+
+
+
               done(true);
+              $.hideIndicator();
             }).catch(err => {
               console.log(err)
             });
@@ -316,6 +363,8 @@
           }, 1500);
         } else {
           done(true);
+          //加载指示器
+          /* $.hideIndicator();*/
         }
 
       }
